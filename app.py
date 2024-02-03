@@ -27,9 +27,6 @@ def upload():
     consumedStrips = list(rawConsumedStrips)
     closingStrips = list(rawClosingStrips)
     medicine = list(rawMedicine)
-    # print(consumedStrips)
-    # print(closingStrips)
-
 
     # Function to replace matched strings
     def replace_amount(match):
@@ -89,9 +86,6 @@ def upload():
             newConsumed.append(saqibConsumed[i])
             newClosing.append(saqibClosing[i])
 
-
-    print(newConsumed)
-    print(newClosing)
 
     df2['JK1004'] = newConsumed
     df2['JK1004.1'] = newClosing
