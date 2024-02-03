@@ -17,6 +17,7 @@ def upload():
 
     # Read data from a specific sheet in the Excel file
     df = pd.read_excel(file1, sheet_name='Sheet1')
+    df.replace('-', 0, inplace=True)
   
 
     # Extract the 8th column (index 7)
@@ -50,10 +51,14 @@ def upload():
         m = m.strip('.')
         m = m.strip()
         m = re.sub(pattern,replace_amount,m)
-        data[m]={
-            'consumed': consumedStrips[i],
-            'closing': closingStrips[i]
-        }
+        if m in data:
+            data[m]['consumed'] = data[m].setdefault('consumed',0) + consumedStrips[i]
+            data[m]['closing'] = data[m].setdefault('closing',0) + closingStrips[i]
+        else:
+            data[m] = {
+                "consumed": consumedStrips[i] ,
+                "closing": closingStrips[i],
+            }
 
 
     df2 = pd.read_excel(file2, sheet_name='Sheet1')
